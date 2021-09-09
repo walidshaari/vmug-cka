@@ -1,10 +1,17 @@
 # cert-magic - episode 7
 
+## Discussions:  
+   You can use `CNCF Slack #certifications channel`  https://cloud-native.slack.com/archives/CLQT6RZAM
+
 ## Tips
 
 - Always remmber your context and namespace
 - Use autocompletion
-- 
+- Familiarize yourself with Kuberentios.io docuemntaion
+  - Cheatsheet  https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+  - Tasks  https://kubernetes.io/docs/tasks/
+  - Concepts https://kubernetes.io/docs/concepts/
+
 
 ## Configurations
 

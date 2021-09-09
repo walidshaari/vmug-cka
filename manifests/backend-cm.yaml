@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: backend-config
 data:
-  database_env: staging
+  database_env: testing
   database_url: jdbc:postgresql://localhost/test
   database_user: saiyam

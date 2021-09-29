@@ -435,6 +435,14 @@ https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#sp
 **
 	
 ### Node affinity
+
+- Why control plane node does not have many pods as worker nodes?
+  
+  can you describe it and check for effective taints?
+	
+  can you run a daemonset across all nodes including control plane node?
+  create a busybox sleep 1 hour daemonset across all nodes
+	
 	
 ** Add a label *env=prod* to one node and create nginx deployment called *prod* with 2 replicas and node Affinity rule to place the pods onto the labeled node.**
 

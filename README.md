@@ -32,7 +32,29 @@
 
 ### Tips
 
-- Always remember your context and namespace.
+- Always remember your Cluster context and namespace **in the exam**.
+
+```
+wal@Bei:~/code/gitrepos/vmug-cka$ kubectl config get-contexts
+CURRENT   NAME            CLUSTER         AUTHINFO        NAMESPACE
+          default         default         default         
+*         kind-vmug-cka   kind-vmug-cka   kind-vmug-cka   
+
+ ###* I can set namespace, and practice it so I do not forget during exam, or practice using -n namespace in commands *###
+
+wal@Bei:~/code/gitrepos/vmug-cka$ kubectl config set-context --current --cluster=kind-vmug-cka --namespace=vmug-cka
+Context "kind-vmug-cka" modified.
+wal@Bei:~/code/gitrepos/vmug-cka$ kubectl config get-contexts
+CURRENT   NAME            CLUSTER         AUTHINFO        NAMESPACE
+          default         default         default         
+*         kind-vmug-cka   kind-vmug-cka   kind-vmug-cka   vmug-cka
+wal@Bei:~/code/gitrepos/vmug-cka$ kubectl get pods
+NAME       READY   STATUS    RESTARTS   AGE
+env-pod    1/1     Running   3          3h53m
+nginx      1/1     Running   0          3h58m
+test-pod   1/1     Running   4          4h30m
+
+```
 - [Use autocompletion](https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-bash-linux/)
   ```
   echo 'source <(kubectl completion bash)' >>~/.bashrc
@@ -72,9 +94,26 @@ nodes:
 # create a two worker nodes cluster from the above config file
 $kind create cluster --config kind/two-nodes.yaml
 ```
+
+Ensure cluster and kubectl are same version required in the exam, as per exam FAQ it is 1.21 for CKA as of yesterday
+```
+ $ curl -LO https://dl.k8s.io/release/v1.21.2/bin/linux/amd64/kubectl
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   154  100   154    0     0    175      0 --:--:-- --:--:-- --:--:--   174
+100 44.2M  100 44.2M    0     0  4528k      0  0:00:10  0:00:10 --:--:-- 5515k
+$ chmod +x kubectl 
+$ sudo mv kubectl  /usr/local/bin/
+[sudo] password for wal: 
+
+wal@Bei:~/code/gitrepos/vmug-cka$ kubectl  version
+Client Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.2", GitCommit:"092fbfbf53427de67cac1e9fa54aaa09a28371d7", GitTreeState:"clean", BuildDate:"2021-06-16T12:59:11Z", GoVersion:"go1.16.5", Compiler:"gc", Platform:"linux/amd64"}
+Server Version: version.Info{Major:"1", Minor:"21", GitVersion:"v1.21.2", GitCommit:"092fbfbf53427de67cac1e9fa54aaa09a28371d7", GitTreeState:"clean", BuildDate:"2021-07-12T20:40:20Z", GoVersion:"go1.16.5", Compiler:"gc", Platform:"linux/amd64"}
+
+```
 ##  scope:
 
-You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health probing, and defining **resource limits and requestes** needed by the containers running the application. When creating a new Pod, the Kubernetes scheduler places the object on an available node. Scheduling rules like **node affinity and taints/tolerations** control and fine-tunes the behavior.
+You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, and defining **resource limits and requestes** needed by the containers running the application. When creating a new Pod, the Kubernetes scheduler places the object on an available node. Scheduling rules like **node affinity and taints/tolerations** control and fine-tunes the behavior.
 
 
 ## Data requirements:

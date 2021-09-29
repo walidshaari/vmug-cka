@@ -7,7 +7,17 @@
 ## Tips
 
 - Always remmber your context and namespace
-- Use autocompletion
+- [Use autocompletion](https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-bash-linux/)
+  ```
+  echo 'source <(kubectl completion bash)' >>~/.bashrc
+  echo 'alias k=kubectl' >>~/.bashrc
+  echo 'complete -F __start_kubectl k' >>~/.bashrc
+  exec $SHELL    #for bashrc to get executed with the new mods
+  
+  k get pods
+  NAME       READY   STATUS    RESTARTS   AGE
+  test-pod   1/1     Running   0          2m18s
+  ```
 - Familiarize yourself with Kuberentios.io docuemntaion
   - Cheatsheet  https://kubernetes.io/docs/reference/kubectl/cheatsheet/
   - Tasks  https://kubernetes.io/docs/tasks/
@@ -39,6 +49,43 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
 - scalable sharing of configuration
 - Enables immutable images
 - Security ( sharing of images, constraining data to specific accounts, keeping secrets out)
+
+
+### passing data directly to command arguments
+<details><summary> Q: create a pod named test-pod running in vmug-cka namespace using image busybox configued with the sleep command to run for an hour     </summary>
+   
+ ```  
+ $ export DO='-o yaml --dry-run=client'
+ 
+ $ kubectl -n vmug-cka run $DO test-pod --image busybox -- sleep 1h|tee test-pod.yaml
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   creationTimestamp: null
+   labels:
+     run: test-pod
+   name: test-pod
+   namespace: vmug-cka
+ spec:
+   containers:
+   - args:
+     - sleep
+     - 1h
+     image: busybox
+     name: test-pod
+     resources: {}
+   dnsPolicy: ClusterFirst
+   restartPolicy: Always
+ status: {}
+  
+ $ kubectl create  -f test-pod.yaml 
+ pod/test-pod created
+ $ k get pods -n vmug-cka
+ NAME       READY   STATUS    RESTARTS   AGE
+ test-pod   1/1     Running   0          11s
+```
+   
+ </details>
 
 ### Environment varibales
 

@@ -13,6 +13,22 @@
   - Tasks  https://kubernetes.io/docs/tasks/
   - Concepts https://kubernetes.io/docs/concepts/
 
+
+## practice cluster
+```
+$ cat kind/two-nodes.yaml 
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: vmug-cka
+nodes:
+- role: control-plane
+  image: kindest/node:v1.21.2 
+- role: worker
+  image:  kindest/node:v1.21.2
+  
+# create a two worker nodes cluster from the above config file
+$kind create cluster --config kind/two-nodes.yaml
+```
 ##  scope:
 
 You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health probing, and defining **resource limits and requestes** needed by the containers running the application. When creating a new Pod, the Kubernetes scheduler places the object on an available node. Scheduling rules like **node affinity and taints/tolerations** control and fine-tunes the behavior.

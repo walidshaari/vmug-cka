@@ -133,7 +133,9 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
    Q3: list the user set enviornment variables only; if that was an exam question they might direct you to store them in a file
   </summary>
 
+
   ```
+
   $ kubectl set env pod/env-pod  -n vmug-cka --list
   # Pod env-pod, container env-pod
   SERVER=vcsa.home.local
@@ -141,7 +143,9 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
   PASS=N0N5ecur3
 
   ```
+
   </details>
+
 
 ### Configmaps
 

@@ -1,7 +1,8 @@
-# cert-magic - episode 7
+#  Workload and scheduling
 
 ## Discussions:  
    You can use `CNCF Slack #certifications channel`  https://cloud-native.slack.com/archives/CLQT6RZAM
+
 
 ## Tips
 
@@ -11,6 +12,26 @@
   - Cheatsheet  https://kubernetes.io/docs/reference/kubectl/cheatsheet/
   - Tasks  https://kubernetes.io/docs/tasks/
   - Concepts https://kubernetes.io/docs/concepts/
+
+##  scope:
+
+You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health probing, and defining **resource limits and requestes** needed by the containers running the application. When creating a new Pod, the Kubernetes scheduler places the object on an available node. Scheduling rules like **node affinity and taints/tolerations** control and fine-tunes the behavior.
+
+
+## Data reuirements
+- decoupling across environments (e.g public, private, dev, qa, prod)
+- scalable sharing of configuration
+- Enables immutable images
+- Security ( sharing of images, constraining data to specific accounts, keeping secrets out)
+
+### Environment varibales
+
+### Configmaps
+
+### secrets
+
+
+
 
 
 ## Configurations

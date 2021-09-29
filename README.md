@@ -44,7 +44,8 @@ $kind create cluster --config kind/two-nodes.yaml
 You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health probing, and defining **resource limits and requestes** needed by the containers running the application. When creating a new Pod, the Kubernetes scheduler places the object on an available node. Scheduling rules like **node affinity and taints/tolerations** control and fine-tunes the behavior.
 
 
-## Data reuirements
+## Data requirements:
+
 - decoupling across environments (e.g public, private, dev, qa, prod)
 - scalable sharing of configuration
 - Enables immutable images
@@ -89,11 +90,11 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
    
  </details>
 
-### Environment varibales
+### Environment variables
 
 <details><summary> Q2: create a pod named env-pod running in vmug-cka namespace using image busybox configued with the sleep command to run for an hour, and sets the following environment variables SERVER=vcsa.home.local, USER=admin@vsphere.local, PASS=N1N5ecur3   </summary>
          
-        ```
+```
 
 	$ kubectl -n vmug-cka run $DO env-pod --image busybox --env SERVER=vcsa.home.local --env USER=admin@vsphere.local --env PASS=N0N5ecur3 -- sleep 1h|tee test-pod.yaml
 	apiVersion: v1
@@ -123,7 +124,7 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
 	  restartPolicy: Always
 	status: {}
 
-        ```
+   ```
  
    </details>
 

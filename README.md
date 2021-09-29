@@ -9,19 +9,40 @@
 
 ### Workloads & Scheduling – 15%
 1. [Understand deployments and how to perform rolling update and rollbacks](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-2. Use [ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/) and [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) to configure applications
+
+    install metrics server from 
+    
+    kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+    try to explore the deployment and service
+    
+    Q-  Which namespace was it installed on? can you change this during installation?
+    
+    Q-  What is the status of the replica-set created by the deployment?
+    
+    Q-  Explore and relate the pods to the replicaset to the deployment
+    
+    Q-  What is wrong with the deployment? can you fix it?
+    
+    Q-  how many replicasets are associated now with the deployment?
+    
+    Q- can you tell from the rollout history why? how can you improve on it?
+    
+    
+    
+    
+3. Use [ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/) and [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) to configure applications
   - [configure a pod with a configmap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
   - [configure a pod with a secret](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/)
-3. Know how to [scale applications](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#scaling-a-deployment)
+4. Know how to [scale applications](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#scaling-a-deployment)
   - [scaling a statefulset](https://kubernetes.io/docs/tasks/run-application/scale-stateful-set/)
   - [scaling a replicaset](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#scaling-a-replicaset)
-4. Understand the primitives used to create robust, self-healing, application deployments
+5. Understand the primitives used to create robust, self-healing, application deployments
  - [Replicaset](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)
  - [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
  - [Statefulsets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
  - [Daemonset](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
-5. Understand [how resource limits can affect Pod scheduling](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#how-pods-with-resource-requests-are-scheduled)
-6. Awareness of manifest management and common templating tools
+6. Understand [how resource limits can affect Pod scheduling](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#how-pods-with-resource-requests-are-scheduled)
+7. Awareness of manifest management and common templating tools
   * [Kustomize](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/)
     - [Kustomize Blog](https://kubernetes.io/blog/2018/05/29/introducing-kustomize-template-free-configuration-customization-for-kubernetes/)
   * [manage kubernetes objects](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/)
@@ -400,4 +421,52 @@ Examples:
 ```
 
 ### kubectl set   env --help
+	
+## Scheduling
+	
+### Node affinity
+	
+** Add a label *env=prod* to one node and create nginx deployment called *prod* with 2 replicas and node Affinity rule to place the pods onto the labeled node.**
+
+    <details><summary>show</summary><p>
+
+    [Affinity and anti-affinity documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
+
+        kubectl label node <node-name> env=prod	
+
+    Generate your own yaml or use this one. There is something wrong with it(indentation or something is missing).
+
+    ```YAML
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: blue
+    spec:
+      replicas: 5
+      selector:
+        matchLabels:
+          run: nginx
+    template:
+        metadata:
+          labels:
+            run: nginx
+        spec:
+          containers:
+          - image: nginx
+            imagePullPolicy: Always
+            name: nginx
+          affinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: env
+                    operator: In
+                    values:
+                    - prod
+    ```
+
+    Check that all pods are scheduled onto the labeled node.
+
+    **Take-away**: Node affinity is a set of rules used by the scheduler to determine where a pod can be placed.
+
 

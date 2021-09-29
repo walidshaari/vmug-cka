@@ -1,3 +1,11 @@
+[![License: CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+
+<p align="center">
+  <img width="300" src="./pics/cka-logo.png">
+</p>
+
 #  Workload and scheduling
 
 ## Discussions:  
@@ -6,22 +14,29 @@
 
 ## Tips
 
-- Always remmber your context and namespace
+- Always remember your context and namespace.
 - [Use autocompletion](https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-bash-linux/)
   ```
   echo 'source <(kubectl completion bash)' >>~/.bashrc
   echo 'alias k=kubectl' >>~/.bashrc
   echo 'complete -F __start_kubectl k' >>~/.bashrc
   exec $SHELL    #for bashrc to get executed with the new mods
+  ```
   
+  You might need to source the profile shell script `source  /etc/profile.d/bash_completion.sh`
+  
+  ```
   k get pods
   NAME       READY   STATUS    RESTARTS   AGE
   test-pod   1/1     Running   0          2m18s
   ```
 - Familiarize yourself with Kuberentios.io docuemntaion
   - Cheatsheet  https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+    - Familiarize yourelf how to generate or format outputs:  https://kubernetes.io/docs/reference/kubectl/cheatsheet/#formatting-output 
+    - Free YAML and jsonpath course from kodekloud https://legacy.kodekloud.com/p/json-path-quiz
   - Tasks  https://kubernetes.io/docs/tasks/
   - Concepts https://kubernetes.io/docs/concepts/
+  - Familiarize yourself with `kubectl explain <api-resource> --recursive`
 
 
 ## practice cluster
@@ -50,6 +65,8 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
 - scalable sharing of configuration
 - Enables immutable images
 - Security ( sharing of images, constraining data to specific accounts, keeping secrets out)
+https://twitter.com/kelseyhightower/status/932644210997465089
+![Kelesy Hightower](pics/donot-hardocode.png)
 
 
 ### passing data directly to command arguments
@@ -202,7 +219,89 @@ database_env=staging
 
 
 ## Secrets
+![kh on secrets](pics/kh-secrets.png)
+https://twitter.com/kelseyhightower/status/1324483384551239681
 - []()
+
+<details>
+<summary>  Q1: Create a secret to hold the following govc credential, the secret name is called govc-creds, in name space vmug-cka, the secret should hold the following key value pairs:  server = vcsa.home.local, user =' administrator@vsphere.local', password = 'Admin!23', port = 443, insecure-flag = 1
+	
+</summary>
+	
+```
+kubectl -n vmug-cka create secret generic govc-creds --from-literal=server=vcsa.home.local --from-literal=user='administrator@vsphere.local' --from-literal=password='Admin!23' --from-literal=port=443 --from-literal=insecure-flag=1 $DO
+```
+```	
+apiVersion: v1
+data:
+  insecure-flag: MQ==
+  password: QWRtaW4hMjM=
+  port: NDQz
+  server: dmNzYS5ob21lLmxvY2Fs
+  user: YWRtaW5pc3RyYXRvckB2c3BoZXJlLmxvY2Fs
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: govc-creds
+  namespace: vmug-cka
+
+```
+	
+</details>
+
+<details>
+<summary>  Q2:
+	use the kubectl --template option to print out the above secret govc-cred password key decoded in clear-text
+</summary>
+	
+```
+echo `kubectl get  secret govc-creds -n vmug-cka --template={{.data.password}}|base64 -d`
+```
+```	
+Admin!23
+```
+	
+```	
+###*  the template argument was built based on the secret schema as you can see below if we use describe *###
+kubectl describe -n vmug-cka secret govc-creds
+Name:         govc-creds
+Namespace:    vmug-cka
+Labels:       <none>
+Annotations:  <none>
+
+Type:  Opaque
+
+Data
+====
+user:           27 bytes
+insecure-flag:  1 bytes
+password:       8 bytes
+port:           3 bytes
+server:         15 bytes
+
+
+```
+	
+</details>
+
+</details>
+
+<details>
+<summary>  Q:
+	
+</summary>
+	
+```
+
+```
+```	
+
+
+```
+	
+</details>
+
+
 
 ### kubectl set   env --help
 ```

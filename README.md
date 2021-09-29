@@ -52,9 +52,11 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
 
 
 ### passing data directly to command arguments
+
 <details><summary> Q: create a pod named test-pod running in vmug-cka namespace using image busybox configued with the sleep command to run for an hour     </summary>
    
  ```  
+
  $ export DO='-o yaml --dry-run=client'
  
  $ kubectl -n vmug-cka run $DO test-pod --image busybox -- sleep 1h|tee test-pod.yaml
@@ -89,7 +91,7 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
 
 ### Environment varibales
 
-	<details><summary> create a pod named env-pod running in vmug-cka namespace using image busybox configued with the sleep command to run for an hour, and sets the following environment variables SERVER=vcsa.home.local, USER=admin@vsphere.local, PASS=N1N5ecur3   </summary>
+   <details><summary> create a pod named env-pod running in vmug-cka namespace using image busybox configued with the sleep command to run for an hour, and sets the following environment variables SERVER=vcsa.home.local, USER=admin@vsphere.local, PASS=N1N5ecur3   </summary>
          
         ```
 	$ kubectl -n vmug-cka run $DO env-pod --image busybox --env SERVER=vcsa.home.local --env USER=admin@vsphere.local --env PASS=N0N5ecur3 -- sleep 1h|tee test-pod.yaml
@@ -121,7 +123,7 @@ You need to be familiar with **Deployments**, **ConfigMaps & Secrets**, health p
 	status: {}
         ```
  
-        </details>
+   </details>
 
 ### Configmaps
 

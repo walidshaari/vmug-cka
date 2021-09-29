@@ -36,6 +36,7 @@
     - Free YAML and jsonpath course from kodekloud https://legacy.kodekloud.com/p/json-path-quiz
   - Tasks  https://kubernetes.io/docs/tasks/
   - Concepts https://kubernetes.io/docs/concepts/
+  - Familiarize yourself with `kubectl explain <api-resource> --recursive`
 
 
 ## practice cluster
@@ -218,6 +219,8 @@ database_env=staging
 
 
 ## Secrets
+![kh on secrets](pics/kh-secrets.png)
+https://twitter.com/kelseyhightower/status/1324483384551239681
 - []()
 
 <details>

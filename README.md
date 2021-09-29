@@ -100,7 +100,8 @@ test-pod   1/1     Running   4          4h30m
   - Familiarize yourself with `kubectl explain <api-resource> --recursive`
 
 
-## practice cluster
+## Practice cluster using KinD
+
 ```
 $ cat kind/two-nodes.yaml 
 kind: Cluster
@@ -423,6 +424,15 @@ Examples:
 ### kubectl set   env --help
 	
 ## Scheduling
+
+### resource limits and requests
+	
+https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit
+
+** Create a deployment of two replicas of nginx called prod01, enforcing container limits and request as follow max memory used by a container: 256Mi
+    while max cpu 1/2 vcpu, minimal specs to run the nginx container as follow: memory: 100Mi and 100m cpu
+    ensure that this runs on a node **vmug-cka-worker2**
+**
 	
 ### Node affinity
 	
